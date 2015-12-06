@@ -66,11 +66,12 @@ public class UserInterface extends Application {
             });
 
         cmpButton.setOnAction((ActionEvent arg0) -> {
-            DirectoryChooser fileChooser = new DirectoryChooser();
-            File file = fileChooser.showDialog(primaryStage);
-            System.out.println(file);
+            //DirectoryChooser fileChooser = new DirectoryChooser();
+            //File file = fileChooser.showDialog(primaryStage);
+            //System.out.println(file);
             //ResultInterface.launch();
             // todo new Thread(() -> DirectoryLoader.displayDirectoryContents(file, dstFolderArea)).start();
+            new FileHandler(srcAbsPath, dstAbsPath);
         });
     }
 
@@ -82,6 +83,8 @@ public class UserInterface extends Application {
     public void placeElements() {
         baseGrid.add(srcButton, 0, 0, 1, 1);
         baseGrid.add(dstButton, 1, 0, 1, 1);
+                baseGrid.add(cmpButton, 1, 20, 1, 1);
+
 
         srcFolderArea.setEditable(false);
         dstFolderArea.setEditable(false);

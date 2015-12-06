@@ -7,6 +7,8 @@ package testjavafx;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,15 +25,30 @@ public class FileHandler {
         this.srcPath = srcPath;
         this.dstPath = dstPath;
         
-        this.srcFiles = new HashMap<>();
-        this.dstFiles = new HashMap<>();
-        
-        Thread srcLoader;
-        srcLoader = new Thread(() -> DirectoryLoader.loadDir(new File(srcPath))).start();
+       Thread srcLoader = new Thread(() -> {
+            this.srcFiles = DirectoryLoader.loadDir(new File(srcPath));
+            this.dstFiles = DirectoryLoader.loadDir(new File(dstPath));
+            System.out.println("NACITAM");
+        });
+       
+       Thread dstLoader = new Thread(() -> {
+            // this.dstFiles = DirectoryLoader.loadDir(new File(dstPath));
+        });
+       
+       Thread comparer = new Thread(() -> {
+            try {
+                srcLoader.join();
+                dstLoader.join();
+            } catch (InterruptedException ex) {
+                System.out.println("Interrupted threads.");
+            }
+        });
     }
     
-    HashMap<String,FileRecord> generateDirectoryTree(String path){
+    public void StartLoaders(){
+        Thread srcLoader;
         
+
     }
     
     
