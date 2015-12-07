@@ -1,0 +1,7 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}This program is written to prove or unprove my coding abilities to Colsys s.r.o.. Feel free to share it however you want to.
+<#if licenseLast??>
+${licenseLast}
+</#if>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testjavafx;
+package FileSync.GUI;
 
 import java.io.File;
 import javafx.application.Application;
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  *
  * @author Michal
  */
-public class ResultInterface extends Application {
+public class ResultInterface extends Stage {
 
     protected final String appName = "Results of comparation";
 
@@ -75,7 +75,4 @@ public class ResultInterface extends Application {
         baseGrid.setPadding(new Insets(25, 25, 25, 25));
     }
 
-    public void start(Stage primaryStage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

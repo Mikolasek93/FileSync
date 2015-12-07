@@ -3,42 +3,43 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testjavafx;
+package FileSync;
 
+import FileSync.GUI.UserInterface;
 import java.io.File;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Michal
  */
 public class FileHandler {
+    
+    UserInterface ParentUI;
+    
     protected String srcPath;
     protected String dstPath;
     
     HashMap<String,FileRecord> srcFiles;
     HashMap<String,FileRecord> dstFiles;
 
-    public FileHandler(String srcPath, String dstPath) {
+    public FileHandler(String srcPath, String dstPat, UserInterface ParentUI) {
+        this.ParentUI = ParentUI;
         this.srcPath = srcPath;
         this.dstPath = dstPath;
         
-       Thread srcLoader = new Thread(() -> {
+       Thread srcThread = new Thread(() -> {
             this.srcFiles = DirectoryLoader.loadDir(new File(srcPath));
-            this.dstFiles = DirectoryLoader.loadDir(new File(dstPath));
-            System.out.println("NACITAM");
         });
        
-       Thread dstLoader = new Thread(() -> {
-            // this.dstFiles = DirectoryLoader.loadDir(new File(dstPath));
+       Thread dstThread = new Thread(() -> {
+            this.dstFiles = DirectoryLoader.loadDir(new File(dstPath));
         });
        
        Thread comparer = new Thread(() -> {
             try {
-                srcLoader.join();
-                dstLoader.join();
+                srcThread.join();
+                dstThread.join();
             } catch (InterruptedException ex) {
                 System.out.println("Interrupted threads.");
             }
@@ -47,8 +48,6 @@ public class FileHandler {
     
     public void StartLoaders(){
         Thread srcLoader;
-        
-
     }
     
     

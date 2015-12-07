@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testjavafx;
+package FileSync.GUI;
 
+import FileSync.FileHandler;
+import FileSync.FileSyncApp;
 import java.io.File;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -23,23 +25,28 @@ import javafx.stage.Stage;
  * @author Michal
  */
 public class UserInterface extends Application {
+
     protected FileSyncApp appData;
+    protected FileHandler fileHandler;
 
     protected Label srcFolderLabel;
 
     protected TextArea srcFolderArea;
     protected TextArea dstFolderArea;
-    
+
     protected Button srcButton;
     protected Button dstButton;
     protected Button cmpButton;
 
     protected String srcAbsPath;
     protected String dstAbsPath;
-   
+
     protected GridPane baseGrid;
     protected final String appName = "test";
-    
+
+    protected boolean srcChosen;
+    protected boolean dstChosen;
+
     public void initGrid() {
         this.baseGrid = new GridPane();
         this.baseGrid.setAlignment(Pos.CENTER);
@@ -52,26 +59,40 @@ public class UserInterface extends Application {
         this.srcButton = new Button("Source Folder");
         this.dstButton = new Button("Destination Folder");
         this.cmpButton = new Button("Start comparation");
-        
+        this.cmpButton.setDisable(true);
+
         srcButton.setOnAction((ActionEvent arg0) -> {
             DirectoryChooser fileChooser = new DirectoryChooser();
             File file = fileChooser.showDialog(primaryStage);
+            if (file == null) {
+                return;
+            }
             this.srcAbsPath = file.getAbsolutePath();
-            });
+            this.srcChosen = true;
+            srcFolderArea.setText(this.srcAbsPath);
+            
+            if (dstChosen) {
+                cmpButton.setDisable(false);
+            }
+        });
 
         dstButton.setOnAction((ActionEvent arg0) -> {
             DirectoryChooser fileChooser = new DirectoryChooser();
             File file = fileChooser.showDialog(primaryStage);
+            if (file == null) {
+                return;
+            }
             this.dstAbsPath = file.getAbsolutePath();
-            });
+            this.dstChosen = true;
+            dstFolderArea.setText(this.dstAbsPath);
+            
+            if (srcChosen) {
+                cmpButton.setDisable(false);
+            }
+        });
 
         cmpButton.setOnAction((ActionEvent arg0) -> {
-            //DirectoryChooser fileChooser = new DirectoryChooser();
-            //File file = fileChooser.showDialog(primaryStage);
-            //System.out.println(file);
-            //ResultInterface.launch();
-            // todo new Thread(() -> DirectoryLoader.displayDirectoryContents(file, dstFolderArea)).start();
-            new FileHandler(srcAbsPath, dstAbsPath);
+            this.fileHandler = new FileHandler(srcAbsPath, dstAbsPath, this);
         });
     }
 
@@ -83,19 +104,20 @@ public class UserInterface extends Application {
     public void placeElements() {
         baseGrid.add(srcButton, 0, 0, 1, 1);
         baseGrid.add(dstButton, 1, 0, 1, 1);
-                baseGrid.add(cmpButton, 1, 20, 1, 1);
-
+        baseGrid.add(cmpButton, 1, 4, 1, 1);
 
         srcFolderArea.setEditable(false);
         dstFolderArea.setEditable(false);
 
-        baseGrid.add(srcFolderArea, 0, 1, 1, 2);
-        baseGrid.add(dstFolderArea, 1, 1, 1, 2);
+        baseGrid.add(srcFolderArea, 0, 1, 1, 1);
+        baseGrid.add(dstFolderArea, 1, 1, 1, 1);
         baseGrid.setPadding(new Insets(25, 25, 25, 25));
     }
-    
+
     @Override
     public void start(Stage primaryStage) {
+        this.srcChosen = false;
+        this.dstChosen = false;
         primaryStage.setTitle(appName);
         initButtons(primaryStage);
         initTextAreas();
@@ -105,8 +127,4 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    public UserInterface() {
-    }
-    
 }
