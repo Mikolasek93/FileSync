@@ -6,10 +6,10 @@
 package FileSync.GUI;
 
 import java.io.File;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.TextArea;
@@ -33,7 +33,21 @@ public class ResultInterface extends Stage {
     protected String dstAbsPath;
     
     protected GridPane baseGrid;
+    
+    protected final int windowWidth = 800;
+    protected final int windowHeight = 600;
 
+    public ResultInterface(){
+        super();
+        this.setTitle(appName);
+        initButtons(this);
+        initTextAreas();
+        initGrid();
+        placeElements();
+        Scene scene = new Scene(baseGrid, windowWidth, windowHeight);
+    }
+
+    
     public void initGrid() {
         this.baseGrid = new GridPane();
         this.baseGrid.setAlignment(Pos.CENTER);
@@ -74,5 +88,6 @@ public class ResultInterface extends Stage {
         baseGrid.add(resultArea, 0, 1, 2, 2);
         baseGrid.setPadding(new Insets(25, 25, 25, 25));
     }
-
+    
+    
 }

@@ -16,6 +16,7 @@ public class FileRecord extends File {
 
     public FileRecord(String string) {
         super(string);
+        destiny = FileOperation.NOCHANGE;
     }
 
     public FileOperation getDestiny() {

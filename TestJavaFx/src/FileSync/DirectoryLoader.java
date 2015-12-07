@@ -24,7 +24,6 @@ public class DirectoryLoader {
     public static void browseDirsRecursively(File dir, String path, HashMap<String,FileRecord> dirTree) {
         File[] files = dir.listFiles();
         for (File file : files) {
-            System.out.println(path+"\n");
             if (file.isDirectory()) {
                 dirTree.put(path, new FileRecord(file.getAbsolutePath()));
                 browseDirsRecursively(file, path + file.getName() + "/", dirTree);

@@ -5,6 +5,8 @@
  */
 package FileSync;
 
+import FileSync.GUI.UserInterface;
+
 /**
  *
  * @author Michal
@@ -15,8 +17,7 @@ public class FileSyncApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
- //       System.out.println("test");        
-//UserInterface.launch(args);
+        UserInterface.launch(args);
     }
 
 }

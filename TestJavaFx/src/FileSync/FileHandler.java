@@ -22,22 +22,26 @@ public class FileHandler {
     
     HashMap<String,FileRecord> srcFiles;
     HashMap<String,FileRecord> dstFiles;
+    
+    protected Thread srcThread;
+    protected Thread dstThread;
+    protected Thread cmpThread;
 
-    public FileHandler(String srcPath, String dstPat, UserInterface ParentUI) {
+    public FileHandler(String srcPath, String dstPath, UserInterface ParentUI) {
         this.ParentUI = ParentUI;
         this.srcPath = srcPath;
         this.dstPath = dstPath;
         
-       Thread srcThread = new Thread(() -> {
+       this.srcThread = new Thread(() -> {
             this.srcFiles = DirectoryLoader.loadDir(new File(srcPath));
         });
        
-       Thread dstThread = new Thread(() -> {
+       this.dstThread = new Thread(() -> {
             this.dstFiles = DirectoryLoader.loadDir(new File(dstPath));
         });
        
-       Thread comparer = new Thread(() -> {
-            try {
+       this.cmpThread = new Thread(() -> {
+           try {
                 srcThread.join();
                 dstThread.join();
             } catch (InterruptedException ex) {
@@ -45,10 +49,5 @@ public class FileHandler {
             }
         });
     }
-    
-    public void StartLoaders(){
-        Thread srcLoader;
-    }
-    
     
 }

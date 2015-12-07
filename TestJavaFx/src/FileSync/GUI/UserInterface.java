@@ -15,7 +15,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -25,24 +24,25 @@ import javafx.stage.Stage;
  * @author Michal
  */
 public class UserInterface extends Application {
-
     protected FileSyncApp appData;
     protected FileHandler fileHandler;
 
-    protected Label srcFolderLabel;
-
+    protected final int windowWidth = 650;
+    protected final int windowHeight = 130;
+    
     protected TextArea srcFolderArea;
     protected TextArea dstFolderArea;
 
     protected Button srcButton;
     protected Button dstButton;
     protected Button cmpButton;
+    protected Button cancelButton;
 
     protected String srcAbsPath;
     protected String dstAbsPath;
 
     protected GridPane baseGrid;
-    protected final String appName = "test";
+    protected final String appName = "FileSync";
 
     protected boolean srcChosen;
     protected boolean dstChosen;
@@ -59,8 +59,10 @@ public class UserInterface extends Application {
         this.srcButton = new Button("Source Folder");
         this.dstButton = new Button("Destination Folder");
         this.cmpButton = new Button("Start comparation");
+        this.cancelButton = new Button("Cancel comparation");
         this.cmpButton.setDisable(true);
-
+        this.cancelButton.setDisable(true);
+        
         srcButton.setOnAction((ActionEvent arg0) -> {
             DirectoryChooser fileChooser = new DirectoryChooser();
             File file = fileChooser.showDialog(primaryStage);
@@ -92,26 +94,35 @@ public class UserInterface extends Application {
         });
 
         cmpButton.setOnAction((ActionEvent arg0) -> {
+            cmpButton.setDisable(true);
+            cancelButton.setDisable(false);
             this.fileHandler = new FileHandler(srcAbsPath, dstAbsPath, this);
+        });
+        
+        cancelButton.setOnAction((ActionEvent arg0) -> {
+            
+            cancelButton.setDisable(true);
+            cmpButton.setDisable(false);
         });
     }
 
     public void initTextAreas() {
-        this.srcFolderArea = new TextArea("TEST");
-        this.dstFolderArea = new TextArea("TEST");
+        this.srcFolderArea = new TextArea("Input folder");
+        this.dstFolderArea = new TextArea("Output folder");
+        
+        srcFolderArea.setEditable(false);
+        dstFolderArea.setEditable(false);
     }
 
     public void placeElements() {
         baseGrid.add(srcButton, 0, 0, 1, 1);
         baseGrid.add(dstButton, 1, 0, 1, 1);
-        baseGrid.add(cmpButton, 1, 4, 1, 1);
-
-        srcFolderArea.setEditable(false);
-        dstFolderArea.setEditable(false);
-
+        baseGrid.add(cmpButton, 0, 2, 1, 1);
+        baseGrid.add(cancelButton, 1, 2, 1, 1);
+        
         baseGrid.add(srcFolderArea, 0, 1, 1, 1);
         baseGrid.add(dstFolderArea, 1, 1, 1, 1);
-        baseGrid.setPadding(new Insets(25, 25, 25, 25));
+        baseGrid.setPadding(new Insets(5, 5, 5, 5));
     }
 
     @Override
@@ -123,8 +134,9 @@ public class UserInterface extends Application {
         initTextAreas();
         initGrid();
         placeElements();
-        Scene scene = new Scene(baseGrid, 800, 400);
+        Scene scene = new Scene(baseGrid, windowWidth, windowHeight);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
+        
+     }
 }
