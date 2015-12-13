@@ -9,23 +9,37 @@
 <GridPane fx:id="baseGrid" fx:controller="FXMLControl.FXMLDocumentController" 
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" >
     
-
     <Button text="Source file"
-           GridPane.columnIndex="0" GridPane.rowIndex="1"
-    onAction="#handleSourceButtonAction"/>
+            GridPane.columnIndex="0" GridPane.rowIndex="1"
+            onAction="#handleSourceButtonAction"/>
  
     <TextField fx:id="sourceFolder"
-        GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="3" editable="false" GridPane.fillWidth="true"/>
+               GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" editable="false" GridPane.fillWidth="true"/>
     
     <Button text="Destination"
-           GridPane.columnIndex="3" GridPane.rowIndex="1"
-    onAction="#handleDestinationButtonAction"/>
+            GridPane.columnIndex="3" GridPane.rowIndex="1"
+            onAction="#handleDestinationButtonAction"/>
     
     <TextField fx:id="destinationFolder"
-        GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.columnSpan="3" editable="false" GridPane.fillWidth="true"/>
- 
-
+               GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.columnSpan="2" editable="false" GridPane.fillWidth="true"/>
+        
+    <Button text="Compare folders"
+            GridPane.columnIndex="0" GridPane.rowIndex="3"
+            onAction="#handleCompareButtonAction"/>
+    
+    <Label text="Source load status" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+    <ProgressBar  fx:id="sourceLoadProgressBar" disable="true" 
+                      progress="0"  GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+    
+    <Label text="Destination load status" GridPane.columnIndex="1" GridPane.rowIndex="4" />     
+    <ProgressBar  fx:id="destinationLoadProgressBar" disable="true" 
+                      progress="0"  GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    
+    <Label text="Compare Status"  GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+    <ProgressBar  fx:id="compareProgressBar" disable="true" 
+                      progress="0"  GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+        
     <Text fx:id="actiontarget"
-      GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+          GridPane.columnIndex="1" GridPane.rowIndex="6"/>
 
 </GridPane>

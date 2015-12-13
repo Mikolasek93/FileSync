@@ -1,8 +1,10 @@
 package FXMLControl;
  
 import java.io.File;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -13,6 +15,7 @@ public class FXMLDocumentController {
     
     @FXML protected TextField sourceFolder;
     @FXML protected TextField destinationFolder;
+    @FXML protected ProgressBar compareProgressBar;
     
     @FXML protected void handleSubmitButtonAction(ActionEvent event) {
         actiontarget.setText("Sign in button pressed");
@@ -35,5 +38,9 @@ public class FXMLDocumentController {
                 return;
             }
             this.destinationFolder.setText(file.getAbsolutePath());
+    }
+    
+        
+    @FXML protected void handleCompareButtonAction(ActionEvent event) {
     }
 }

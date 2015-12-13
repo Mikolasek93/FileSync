@@ -7,6 +7,9 @@ package FileSync;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -14,6 +17,32 @@ import java.io.FileInputStream;
  */
 public class FileComparer {
 
+    public static void compareFileTrees(HashMap<String, FileRecord> sourceFiles, HashMap<String, FileRecord> destinationFiles) throws Exception{
+        Iterator sourceFilesIterator = sourceFiles.entrySet().iterator();
+        FileRecord tempDestFile, tempSrcFile;
+        
+    while (sourceFilesIterator.hasNext()) {
+        Map.Entry currentFilePair = (Map.Entry)sourceFilesIterator.next();
+        
+        tempSrcFile = (FileRecord) currentFilePair.getValue();
+        tempDestFile = destinationFiles.get(currentFilePair.getKey());
+        
+        if(destinationFiles.get(currentFilePair.getKey()) != null ){
+            if (equalFiles(tempSrcFile,tempDestFile)){
+                tempDestFile.setDestiny(FileOperation.NOCHANGE);
+            }
+            else{
+                tempDestFile.setDestiny(FileOperation.UPDATE);
+            }
+        }
+        else{
+            FileRecord newRecord = new FileRecord(tempSrcFile.getAbsolutePath());
+            newRecord.setDestiny(FileOperation.CREATE);
+            destinationFiles.put((String) currentFilePair.getKey(), newRecord);
+        }
+    }
+    }
+    
     public static Boolean equalFiles(File a, File b) throws Exception {
         if (a.isDirectory() && b.isDirectory()) {
             return true;
@@ -32,19 +61,19 @@ public class FileComparer {
     }
 
     private static boolean equalContents(File a, File b)  throws Exception {
-        FileInputStream fis1 = new FileInputStream(a);
-        FileInputStream fis2 = new FileInputStream(b);
-        int i1 = fis1.read();
-        int i2 = fis2.read();
-        while (i1 != -1) {
-            if (i1 != i2) {
+        FileInputStream aFileStream = new FileInputStream(a);
+        FileInputStream bFileStream = new FileInputStream(b);
+        int aFileIterator = aFileStream.read();
+        int bFileIterator = bFileStream.read();
+        while (aFileIterator != -1) {
+            if (aFileIterator != bFileIterator) {
               return false;
             }
-            i1 = fis1.read();
-            i2 = fis2.read();
+            aFileIterator = aFileStream.read();
+            bFileIterator = bFileStream.read();
         }
-        fis1.close();
-        fis2.close();
+        aFileStream.close();
+        bFileStream.close();
         return true;
     }
 }

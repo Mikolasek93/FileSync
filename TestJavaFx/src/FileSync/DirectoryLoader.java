@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class DirectoryLoader {
     
     public static HashMap<String,FileRecord> loadDir(File dir) {
-        String relativePath = "./";
+        String relativePath = File.separator;
         HashMap<String,FileRecord> dirTree = new HashMap<>();
         browseDirsRecursively(dir, relativePath, dirTree);
         return dirTree;
@@ -26,7 +26,7 @@ public class DirectoryLoader {
         for (File file : files) {
             if (file.isDirectory()) {
                 dirTree.put(path, new FileRecord(file.getAbsolutePath()));
-                browseDirsRecursively(file, path + file.getName() + "/", dirTree);
+                browseDirsRecursively(file, path + file.getName() + File.separator  , dirTree);
             } else {
                 dirTree.put(path, new FileRecord(file.getAbsolutePath()));
             }

@@ -14,9 +14,9 @@ import java.io.File;
 public class FileRecord extends File {
     protected FileOperation destiny;
 
-    public FileRecord(String string) {
-        super(string);
-        destiny = FileOperation.NOCHANGE;
+    public FileRecord(String AbsPath) {
+        super(AbsPath);
+        destiny = FileOperation.REMOVE;
     }
 
     public FileOperation getDestiny() {

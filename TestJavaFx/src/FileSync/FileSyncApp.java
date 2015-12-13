@@ -5,7 +5,6 @@
  */
 package FileSync;
 
-import FileSync.GUI.UserInterface;
 
 /**
  *
@@ -17,7 +16,6 @@ public class FileSyncApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        UserInterface.launch(args);
     }
 
 }

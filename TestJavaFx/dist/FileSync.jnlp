@@ -11,11 +11,11 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FileSync.jar" size="10923" download="eager" />
+    <jar href="FileSync.jar" size="11283" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="FileSync" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="FileSync.GUI.UserInterface"  name="FileSync" />
+  <jfx:javafx-desc  width="800" height="600" main-class="FXMLControl.MainApp"  name="FileSync" />
   <update check="always"/>
 </jnlp>
