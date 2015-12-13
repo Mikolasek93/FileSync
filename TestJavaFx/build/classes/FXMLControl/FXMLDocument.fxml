@@ -38,8 +38,5 @@
     <Label text="Compare Status"  GridPane.columnIndex="0" GridPane.rowIndex="6"/>
     <ProgressBar  fx:id="compareProgressBar" disable="true" 
                       progress="0"  GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-        
-    <Text fx:id="actiontarget"
-          GridPane.columnIndex="1" GridPane.rowIndex="6"/>
 
 </GridPane>
