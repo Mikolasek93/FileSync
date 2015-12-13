@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:id="baseGrid" fx:controller="FXMLControl.FXMLDocumentController" 
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" >
+    
+
+    <Button text="Source file"
+           GridPane.columnIndex="0" GridPane.rowIndex="1"
+    onAction="#handleSourceButtonAction"/>
+ 
+    <TextField fx:id="sourceFolder"
+        GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="3" editable="false" GridPane.fillWidth="true"/>
+    
+    <Button text="Destination"
+           GridPane.columnIndex="3" GridPane.rowIndex="1"
+    onAction="#handleDestinationButtonAction"/>
+    
+    <TextField fx:id="destinationFolder"
+        GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.columnSpan="3" editable="false" GridPane.fillWidth="true"/>
+ 
+
+    <Text fx:id="actiontarget"
+      GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+</GridPane>
