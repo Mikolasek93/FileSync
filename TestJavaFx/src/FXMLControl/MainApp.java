@@ -23,7 +23,7 @@ public class MainApp extends Application {
     
         Scene scene = new Scene(root, 500, 275);
     
-        stage.setTitle("FXML Welcome");
+        stage.setTitle("Colsys testApp");
         stage.setScene(scene);
         stage.show();
     }
